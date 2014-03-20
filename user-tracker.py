@@ -14,13 +14,13 @@ def join(identity, channel, context=hexchat):
     context.command(command)
 
 
-def callback(*arguments):
-    identity = arguments[0][0][1:]
+def callback(word, word_eol, userdata):
+    identity = word[0][1:]
     nickname = identity.split('!', 1)[0]
     users = hexchat.get_list('users')
 
     if not nickname in [user.nick for user in users]:
-        channel = arguments[0][2]
+        channel = word[2]
         join(identity, channel)
 
     return hexchat.EAT_NONE
